@@ -21,6 +21,10 @@
   --p-text-dark: #f2f5f3;
   --p-text-muted: #475752;
   --p-text-muted-dark: #a2b2ad;
+
+  --hero-text-primary: #0f2747;
+  --hero-text-secondary: #475752;
+  --hero-accent: #C49A58;
   
   --p-radius: 18px;
   --p-transition: all 1.2s cubic-bezier(0.25, 1, 0.5, 1);
@@ -78,6 +82,9 @@ button {
 html.dark .premium-body {
   background: var(--p-bg-cream-dark) !important;
   color: var(--p-text-dark);
+  --hero-text-primary: #ffffff;
+  --hero-text-secondary: #a2b2ad;
+  --hero-accent: #C49A58;
 }
 
 /* Scroll Lock and Height containment rules */
@@ -653,6 +660,18 @@ main, footer {
   position: relative;
 }
 
+html:not(.dark) .premium-hero .hero-left-content {
+  isolation: isolate;
+}
+
+html:not(.dark) .premium-hero .hero-title {
+  color: var(--hero-text-primary) !important;
+}
+
+html:not(.dark) .premium-hero .hero-description {
+  color: var(--hero-text-secondary) !important;
+}
+
 .hero-layout {
   display: grid;
   grid-template-columns: 1.1fr 0.9fr;
@@ -698,27 +717,29 @@ html.dark .hero-badge {
   line-height: 1.1;
   letter-spacing: -0.02em;
   margin-bottom: 24px;
-  color: var(--p-accent);
+  color: var(--hero-text-primary);
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.25);
 }
 
 html.dark .hero-title {
-  color: var(--p-accent-gold);
+  color: var(--hero-text-primary);
+  text-shadow: 0 3px 18px rgba(0, 0, 0, 0.28);
 }
 
 .hero-title span.gradient-text {
-  color: var(--p-accent-gold);
+  color: var(--hero-accent);
 }
 
 .hero-description {
   font-size: clamp(1.05rem, 1.8vw, 1.25rem);
   line-height: 1.6;
-  color: var(--p-text-muted);
+  color: var(--hero-text-secondary);
   margin-bottom: 40px;
   max-width: 540px;
 }
 
 html.dark .hero-description {
-  color: var(--p-text-muted-dark);
+  color: var(--hero-text-secondary);
 }
 
 .hero-buttons-row {
@@ -1726,12 +1747,16 @@ html.dark .form-card:hover {
 .hero-title {
   font-family: 'Syne', sans-serif !important;
   font-weight: 800 !important;
-  color: #fff !important;
+  color: var(--hero-text-primary) !important;
+}
+
+.hero-title span.gradient-text {
+  color: var(--hero-accent) !important;
 }
 
 .hero-sub {
   font-family: 'Outfit', sans-serif !important;
-  color: rgba(255, 255, 255, 0.85) !important;
+  color: var(--hero-text-secondary) !important;
 }
 
 /* Step tracker and sequential timelines styling */
@@ -3278,4 +3303,32 @@ body.sidebar-hidden:not(.view-dashboard-active) .sidebar[style] {
   body:not(.view-dashboard-active) .sidebar[style] {
     transition-duration: 1ms !important;
   }
+}
+
+/* Home hero contrast: final theme-aware override for the landing page headline. */
+html:not(.dark) body.premium-body .premium-hero .hero-title {
+  color: #0F2747 !important;
+  -webkit-text-fill-color: #0F2747 !important;
+  opacity: 1 !important;
+  mix-blend-mode: normal !important;
+  filter: none !important;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.32) !important;
+}
+
+html:not(.dark) body.premium-body .premium-hero .hero-title .gradient-text {
+  color: var(--hero-accent, #C49A58) !important;
+  -webkit-text-fill-color: var(--hero-accent, #C49A58) !important;
+  opacity: 1 !important;
+  mix-blend-mode: normal !important;
+  filter: none !important;
+}
+
+html.dark body.premium-body .premium-hero .hero-title {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+
+html.dark body.premium-body .premium-hero .hero-title .gradient-text {
+  color: var(--hero-accent, #C49A58) !important;
+  -webkit-text-fill-color: var(--hero-accent, #C49A58) !important;
 }
