@@ -681,115 +681,14 @@
       font-weight: 600;
     }
 
-    /* KEY FEATURES Section */
-    .dash-section-key-features {
-      max-width: 1200px;
-      margin: 48px auto;
-      padding: 0 24px;
-    }
-
-    .dash-section-title-row {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      margin-bottom: 32px;
-    }
-
-    .dash-section-title {
-      font-family: 'Outfit', sans-serif;
-      font-size: 15px;
-      font-weight: 800;
-      color: #17324D;
-      letter-spacing: 1.2px;
-      text-transform: uppercase;
-      white-space: nowrap;
-    }
-
-    .dash-section-title-line {
-      height: 2px;
-      background: #C49A58;
-      flex: 1;
-    }
-
-    .dash-features-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 20px;
-    }
-
-    .dash-feature-card {
-      background: #ffffff;
-      border: 1px solid #E2E8F0;
-      border-radius: 8px;
-      padding: 24px;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      transition: all 0.3s;
-      cursor: pointer;
-    }
-
-    .dash-feature-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 24px rgba(23, 50, 77, 0.08);
-      border-color: #C49A58;
-    }
-
-    .dash-feature-icon-wrapper {
-      width: 48px;
-      height: 48px;
-      border-radius: 8px;
-      background: #F1F5F9;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #17324D;
-      margin-bottom: 20px;
-      transition: all 0.2s;
-    }
-
-    .dash-feature-card:hover .dash-feature-icon-wrapper {
-      background: #17324D;
-      color: #ffffff;
-    }
-
-    .dash-feature-title {
-      font-size: 16px;
-      font-weight: 800;
-      color: #17324D;
-      margin-bottom: 10px;
-    }
-
-    .dash-feature-desc {
-      font-size: 13px;
-      color: #64748B;
-      line-height: 1.5;
-      margin-bottom: 20px;
-      flex: 1;
-    }
-
-    .dash-feature-link {
-      font-size: 12.5px;
-      font-weight: 700;
-      color: #C49A58;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      transition: gap 0.2s;
-    }
-
-    .dash-feature-card:hover .dash-feature-link {
-      gap: 8px;
-    }
-
     /* Bottom Grid (Updates & Quick Access) */
     .dash-bottom-layout-grid {
       max-width: 1200px;
-      margin: 48px auto;
+      margin: 16px auto 24px;
       padding: 0 24px;
       display: grid;
       grid-template-columns: 1.1fr 0.9fr;
-      gap: 40px;
+      gap: 16px;
     }
 
     .dash-panel-card {
@@ -938,102 +837,6 @@
       font-weight: 500;
     }
 
-    /* Footer */
-    .dash-gov-footer {
-      background: #0B1622;
-      color: #94A3B8;
-      padding: 48px 24px 32px;
-      border-top: 4px solid #C49A58;
-      font-size: 13px;
-    }
-
-    .dash-footer-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      gap: 40px;
-      flex-wrap: wrap;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-      padding-bottom: 24px;
-      margin-bottom: 24px;
-    }
-
-    .dash-footer-left {
-      display: flex;
-      flex-direction: column;
-      max-width: 600px;
-    }
-
-    .dash-footer-title {
-      color: #ffffff;
-      font-size: 16px;
-      font-weight: 800;
-      margin-bottom: 8px;
-    }
-
-    .dash-footer-desc {
-      line-height: 1.6;
-    }
-
-    .dash-footer-right {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 16px;
-      justify-content: space-between;
-    }
-
-    .dash-footer-links {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      list-style: none;
-    }
-
-    .dash-footer-link-item button {
-      color: #94A3B8;
-      font-weight: 600;
-      border: none;
-      background: transparent;
-      cursor: pointer;
-    }
-
-    .dash-footer-link-item button:hover {
-      color: #ffffff;
-    }
-
-    .dash-footer-badges {
-      display: flex;
-      gap: 12px;
-    }
-
-    .dash-footer-badge {
-      display: inline-flex;
-      align-items: center;
-      padding: 4px 12px;
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      border-radius: 4px;
-      background: rgba(255, 255, 255, 0.02);
-      font-weight: 700;
-      font-size: 11px;
-      color: #ffffff;
-      text-decoration: none;
-    }
-
-    .dash-footer-badge:hover {
-      background: rgba(255, 255, 255, 0.06);
-      border-color: #C49A58;
-    }
-
-    .dash-footer-bottom-text {
-      text-align: center;
-      font-size: 11px;
-      color: #64748B;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
     /* Reliable dashboard layout fixes */
     .dash-switcher-tabs,
     .dash-gov-utility-strip,
@@ -1083,20 +886,6 @@
       font-size: clamp(40px, 3.4vw, 54px);
     }
 
-    .dash-section-key-features,
-    .dash-bottom-layout-grid {
-      margin: 36px auto;
-    }
-
-    .dash-bottom-layout-grid {
-      gap: 24px;
-    }
-
-    .dash-feature-card {
-      min-height: 210px;
-      padding: 20px;
-    }
-
     .dash-panel-card {
       min-width: 0;
       padding: 20px;
@@ -1109,164 +898,6 @@
 
     .dash-quick-access-btn {
       min-height: 62px;
-    }
-
-    .dash-live-workbench {
-      max-width: 1200px;
-      margin: 36px auto;
-      padding: 0 24px;
-      display: grid;
-      grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);
-      gap: 24px;
-      align-items: start;
-    }
-
-    .dash-live-stack {
-      display: grid;
-      gap: 16px;
-      min-width: 0;
-    }
-
-    .dash-progress-list {
-      display: grid;
-      gap: 12px;
-    }
-
-    .dist-progress-item {
-      display: grid;
-      gap: 8px;
-    }
-
-    .dist-progress-name {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 12.5px;
-      font-weight: 700;
-      color: #17324D;
-    }
-
-    .dist-progress-bar-container {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) 42px;
-      gap: 10px;
-      align-items: center;
-    }
-
-    .dist-progress-bar {
-      height: 8px;
-      border-radius: 99px;
-      background: #E2E8F0;
-      overflow: hidden;
-    }
-
-    .dist-progress-fill {
-      height: 100%;
-      border-radius: inherit;
-      transition: width 0.25s ease;
-    }
-
-    .dist-progress-pct {
-      font-size: 12px;
-      font-weight: 800;
-      color: #64748B;
-      text-align: right;
-    }
-
-    #dash-recent .file-item {
-      border: 1px solid #E2E8F0;
-      border-radius: 8px;
-      padding: 12px;
-      background: #F8FAFC;
-    }
-
-    #dash-recent .file-name {
-      min-width: 0;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      color: #17324D;
-      font-weight: 800;
-    }
-
-    #dash-right-sidebar .whats-new-sidebar {
-      background: linear-gradient(180deg, #17324D 0%, #0f243a 100%);
-      color: #ffffff;
-      border-radius: 8px;
-      padding: 18px;
-      border: 1px solid rgba(196, 154, 88, 0.28);
-      box-shadow: 0 12px 24px rgba(23, 50, 77, 0.14);
-    }
-
-    #dash-right-sidebar .whats-new-title {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 15px;
-      font-weight: 800;
-      margin-bottom: 8px;
-      color: #ffffff;
-    }
-
-    #dash-right-sidebar .whats-new-desc {
-      margin: 0 0 14px;
-      color: rgba(255, 255, 255, 0.72);
-      font-size: 12.5px;
-      line-height: 1.5;
-    }
-
-    #dash-right-sidebar .whats-new-item {
-      display: grid;
-      grid-template-columns: 38px minmax(0, 1fr) 18px;
-      gap: 10px;
-      align-items: center;
-      padding: 10px;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      color: #dbeafe;
-      border: 1px solid transparent;
-    }
-
-    #dash-right-sidebar .whats-new-item:hover,
-    #dash-right-sidebar .whats-new-item.active-filter {
-      background: rgba(255, 255, 255, 0.12);
-      border-color: rgba(196, 154, 88, 0.35);
-      color: #ffffff;
-    }
-
-    #dash-right-sidebar .whats-new-badge {
-      width: 34px;
-      height: 28px;
-      border-radius: 6px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 10px;
-      font-weight: 900;
-      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.16);
-    }
-
-    #dash-right-sidebar .whats-new-name {
-      min-width: 0;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      font-size: 13px;
-      font-weight: 700;
-      color: inherit;
-    }
-
-    #dash-right-sidebar .whats-new-arrow {
-      color: rgba(255, 255, 255, 0.62);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    #dash-right-sidebar .whats-new-item:hover .whats-new-arrow,
-    #dash-right-sidebar .whats-new-item.active-filter .whats-new-arrow {
-      color: #C49A58;
     }
 
     /* Dashboard dark mode: scoped to this page so other portal screens keep their own theme */
@@ -1311,8 +942,6 @@
 
     html.dark #view-dashboard .dash-gov-brand-row,
     html.dark #view-dashboard .dash-gov-info-bar,
-    html.dark #view-dashboard .dash-section-key-features,
-    html.dark #view-dashboard .dash-live-workbench,
     html.dark #view-dashboard .dash-bottom-layout-grid {
       background: #07111f;
     }
@@ -1323,23 +952,17 @@
     }
 
     html.dark #view-dashboard .dash-brand-title,
-    html.dark #view-dashboard .dash-section-title,
     html.dark #view-dashboard .dash-info-bar-left strong,
     html.dark #view-dashboard .dash-panel-title,
     html.dark #view-dashboard .dash-panel-link-all,
-    html.dark #view-dashboard .dash-feature-title,
-    html.dark #view-dashboard .dash-quick-title,
-    html.dark #view-dashboard .dist-progress-name,
-    html.dark #view-dashboard #dash-recent .file-name {
+    html.dark #view-dashboard .dash-quick-title {
       color: #f8fafc;
     }
 
     html.dark #view-dashboard .dash-brand-subtitle,
     html.dark #view-dashboard .dash-info-bar-container,
-    html.dark #view-dashboard .dash-feature-desc,
     html.dark #view-dashboard .dash-update-meta,
-    html.dark #view-dashboard .dash-quick-subtitle,
-    html.dark #view-dashboard .dist-progress-pct {
+    html.dark #view-dashboard .dash-quick-subtitle {
       color: #a9b8ca;
     }
 
@@ -1418,32 +1041,23 @@
       border-color: rgba(226, 232, 240, 0.14);
     }
 
-    html.dark #view-dashboard .dash-feature-card,
     html.dark #view-dashboard .dash-panel-card,
-    html.dark #view-dashboard .dash-quick-access-btn,
-    html.dark #view-dashboard #dash-recent .file-item {
+    html.dark #view-dashboard .dash-quick-access-btn {
       background: #0d1a2b;
       border-color: rgba(148, 163, 184, 0.22);
       box-shadow: none;
     }
 
-    html.dark #view-dashboard .dash-feature-card:hover,
     html.dark #view-dashboard .dash-quick-access-btn:hover {
       background: #122238;
       border-color: #d0a35d;
       box-shadow: 0 12px 26px rgba(0, 0, 0, 0.28);
     }
 
-    html.dark #view-dashboard .dash-feature-icon-wrapper,
     html.dark #view-dashboard .dash-quick-icon-box {
       background: #07111f;
       border-color: rgba(148, 163, 184, 0.22);
       color: #d0a35d;
-    }
-
-    html.dark #view-dashboard .dash-feature-card:hover .dash-feature-icon-wrapper {
-      background: #d0a35d;
-      color: #07111f;
     }
 
     html.dark #view-dashboard .dash-panel-header {
@@ -1452,10 +1066,6 @@
 
     html.dark #view-dashboard .dash-update-text {
       color: #e5edf6;
-    }
-
-    html.dark #view-dashboard .dist-progress-bar {
-      background: #1e314b;
     }
 
     html.dark #view-dashboard .dash-badge-emgsm,
@@ -1490,21 +1100,6 @@
       color: #fca5a5;
     }
 
-    html.dark #view-dashboard .dash-gov-footer {
-      background: #020817;
-      color: #9fb0c5;
-      border-top-color: #d0a35d;
-    }
-
-    html.dark #view-dashboard .dash-footer-title,
-    html.dark #view-dashboard .dash-footer-badge {
-      color: #f8fafc;
-    }
-
-    html.dark #view-dashboard .dash-footer-container {
-      border-bottom-color: rgba(148, 163, 184, 0.16);
-    }
-
     html.dark #view-dashboard #dash-review-banner {
       background: #241707 !important;
       border-color: #b7791f !important;
@@ -1515,49 +1110,8 @@
       color: #f6d79e !important;
     }
 
-    html.dark #view-dashboard #dash-right-sidebar .whats-new-sidebar {
-      background: linear-gradient(180deg, #0d1a2b 0%, #08111f 100%);
-      border: 1px solid rgba(148, 163, 184, 0.22);
-      box-shadow: 0 16px 32px rgba(0, 0, 0, 0.32);
-    }
-
-    html.dark #view-dashboard #dash-right-sidebar .whats-new-title {
-      color: #f8fafc;
-    }
-
-    html.dark #view-dashboard #dash-right-sidebar .whats-new-desc {
-      color: #b6c4d6;
-    }
-
-    html.dark #view-dashboard #dash-right-sidebar .whats-new-item {
-      color: #dbeafe;
-      border-color: transparent;
-    }
-
-    html.dark #view-dashboard #dash-right-sidebar .whats-new-item:hover,
-    html.dark #view-dashboard #dash-right-sidebar .whats-new-item.active-filter {
-      background: rgba(208, 163, 93, 0.14);
-      border-color: rgba(208, 163, 93, 0.42);
-      color: #ffffff;
-    }
-
-    html.dark #view-dashboard #dash-right-sidebar .whats-new-badge {
-      color: #07111f !important;
-      border: 1px solid rgba(255, 255, 255, 0.18);
-    }
-
-    html.dark #view-dashboard #dash-right-sidebar .whats-new-arrow {
-      color: #8ea4bd;
-    }
-
-    html.dark #view-dashboard #dash-right-sidebar .whats-new-item:hover .whats-new-arrow,
-    html.dark #view-dashboard #dash-right-sidebar .whats-new-item.active-filter .whats-new-arrow {
-      color: #d0a35d;
-    }
-
     @media (max-width: 1100px) {
       .dash-hero-container,
-      .dash-live-workbench,
       .dash-bottom-layout-grid {
         grid-template-columns: 1fr;
       }
@@ -1569,9 +1123,6 @@
         grid-template-columns: repeat(3, minmax(0, 1fr));
       }
 
-      .dash-features-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
     }
 
     @media (max-width: 760px) {
@@ -1654,7 +1205,6 @@
         font-size: 16px;
       }
 
-      .dash-features-grid,
       .dash-quick-access-grid {
         grid-template-columns: 1fr;
       }
@@ -1668,19 +1218,9 @@
           linear-gradient(180deg, rgba(2, 8, 23, 0.99) 0%, rgba(9, 24, 43, 0.96) 52%, rgba(8, 17, 31, 0.68) 78%, rgba(8, 17, 31, 0.22) 100%);
       }
 
-      .dash-section-key-features,
-      .dash-live-workbench,
       .dash-bottom-layout-grid {
-        margin: 28px auto;
+        margin: 16px auto;
         padding: 0 16px;
-      }
-
-      .dash-footer-right {
-        align-items: flex-start;
-      }
-
-      .dash-footer-links {
-        gap: 8px;
       }
     }
   </style>
@@ -1893,81 +1433,6 @@
       </div>
     </div>
 
-    <main id="dash-main-content" class="dash-live-workbench">
-      <div class="dash-live-stack">
-        <div class="dash-panel-card">
-          <div class="dash-panel-header">
-            <span class="dash-panel-title">
-              <i data-lucide="folder-clock" style="width: 16px; height: 16px; color: #F2A123;"></i> Recent DSR Projects
-            </span>
-            <span onclick="showView('projects', null)" class="dash-panel-link-all">View Projects</span>
-          </div>
-          <div id="dash-recent"></div>
-        </div>
-
-        <div class="dash-panel-card">
-          <div class="dash-panel-header">
-            <span class="dash-panel-title">
-              <i data-lucide="bar-chart-3" style="width: 16px; height: 16px; color: #C49A58;"></i> District Progress
-            </span>
-          </div>
-          <div id="dash-district-progress" class="dash-progress-list"></div>
-        </div>
-      </div>
-
-      <aside id="dash-right-sidebar" class="dash-live-stack" aria-label="District management"></aside>
-    </main>
-
-    <!-- KEY FEATURES Section -->
-    <section class="dash-section-key-features">
-      <div class="dash-section-title-row">
-        <span class="dash-section-title">Key Features</span>
-        <div class="dash-section-title-line"></div>
-      </div>
-      
-      <div class="dash-features-grid">
-        <!-- Card 1 -->
-        <div onclick="newProjectModal()" class="dash-feature-card">
-          <div class="dash-feature-icon-wrapper">
-            <i data-lucide="file-signature" style="width: 22px; height: 22px;"></i>
-          </div>
-          <h3 class="dash-feature-title">DSR Preparation</h3>
-          <p class="dash-feature-desc">Structured digital forms for all EMGSM 2020 compliant survey parameters across Punjab districts.</p>
-          <span class="dash-feature-link">Open View <i data-lucide="arrow-right" style="width:13px; height:13px;"></i></span>
-        </div>
-        
-        <!-- Card 2 -->
-        <div onclick="showView('esign', null)" class="dash-feature-card">
-          <div class="dash-feature-icon-wrapper">
-            <i data-lucide="shield-check" style="width: 22px; height: 22px;"></i>
-          </div>
-          <h3 class="dash-feature-title">Digital E-Sign</h3>
-          <p class="dash-feature-desc">Secure digital signatures for district authorities. Integrated with NIC eSign infrastructure.</p>
-          <span class="dash-feature-link">Open View <i data-lucide="arrow-right" style="width:13px; height:13px;"></i></span>
-        </div>
-
-        <!-- Card 3 -->
-        <div onclick="showView('workflow', null)" class="dash-feature-card">
-          <div class="dash-feature-icon-wrapper">
-            <i data-lucide="git-merge" style="width: 22px; height: 22px;"></i>
-          </div>
-          <h3 class="dash-feature-title">Review Workflow</h3>
-          <p class="dash-feature-desc">Multi-stage review and approval pipeline — field officer &rarr; district officer &rarr; authority sign-off.</p>
-          <span class="dash-feature-link">Open View <i data-lucide="arrow-right" style="width:13px; height:13px;"></i></span>
-        </div>
-
-        <!-- Card 4 -->
-        <div onclick="showView('generate', null)" class="dash-feature-card">
-          <div class="dash-feature-icon-wrapper">
-            <i data-lucide="file-down" style="width: 22px; height: 22px;"></i>
-          </div>
-          <h3 class="dash-feature-title">PDF Generation</h3>
-          <p class="dash-feature-desc">Auto-generate official format DSR PDF reports for submission to state government authorities.</p>
-          <span class="dash-feature-link">Open View <i data-lucide="arrow-right" style="width:13px; height:13px;"></i></span>
-        </div>
-      </div>
-    </section>
-
     <!-- Bottom layout columns (Updates & Quick Access) -->
     <div class="dash-bottom-layout-grid">
       <!-- Latest Updates Panel -->
@@ -2088,43 +1553,6 @@
       <span id="d-pdfs-pct">0%</span>
     </div>
 
-    <!-- Footer -->
-    <footer class="dash-gov-footer">
-      <div class="dash-footer-container">
-        <div class="dash-footer-left">
-          <span class="dash-footer-title">District Survey Report Automation Portal</span>
-          <p class="dash-footer-desc">
-            Government of Punjab - IIT Ropar Research Cell - Developed & Hosted by NIC Punjab State Centre.
-          </p>
-          <p class="dash-footer-desc" style="margin-top: 6px; font-size: 12px; opacity: 0.7;">
-            Content owned by Dept. of Mining, Govt. of Punjab - Last Reviewed: Jun 2026
-          </p>
-        </div>
-        <div class="dash-footer-right">
-          <ul class="dash-footer-links">
-            <li class="dash-footer-link-item"><button onclick="showView('sdlc-portal', null)">RTI</button></li>
-            <li class="dash-footer-link-item">|</li>
-            <li class="dash-footer-link-item"><button onclick="dashPortalToast('Privacy policy content is maintained by the portal administrator.')">Privacy Policy</button></li>
-            <li class="dash-footer-link-item">|</li>
-            <li class="dash-footer-link-item"><button onclick="dashPortalToast('Terms apply to official DSR preparation and review workflows.')">Terms of Use</button></li>
-            <li class="dash-footer-link-item">|</li>
-            <li class="dash-footer-link-item"><button onclick="dashPortalToast('Use A-/A/A+ controls above to adjust portal font size.')">Accessibility</button></li>
-            <li class="dash-footer-link-item">|</li>
-            <li class="dash-footer-link-item"><button onclick="showView('workflow', null)">Sitemap</button></li>
-            <li class="dash-footer-link-item">|</li>
-            <li id="dash-contact-section" class="dash-footer-link-item"><button onclick="showView('sdlc-portal', null)">Contact Us</button></li>
-          </ul>
-          <div class="dash-footer-badges">
-            <button type="button" class="dash-footer-badge" onclick="dashPortalToast('Digital India alignment: enabled')">Digital India</button>
-            <button type="button" class="dash-footer-badge" onclick="dashPortalToast('NIC integration status: active')">NIC</button>
-            <button type="button" class="dash-footer-badge" onclick="dashPortalToast('IIT Ropar Research Cell workspace')">IIT Ropar</button>
-          </div>
-        </div>
-      </div>
-      <div class="dash-footer-bottom-text">
-        &copy; 2026 IIT Ropar & Punjab Govt Automation Portal. All rights reserved.
-      </div>
-    </footer>
   </div>
 
 </div>
