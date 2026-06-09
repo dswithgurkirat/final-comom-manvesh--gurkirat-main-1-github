@@ -17,7 +17,10 @@ function normalizeBackendProjects(data) {
     status: p.status === 'IN_PROGRESS' || p.status === 'ACTIVE' ? 'In Progress' : (p.status || 'In Progress'),
     createdAt: p.createdAt ? new Date(p.createdAt).toLocaleString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : 'N/A',
     signatures: Number.isFinite(Number(p.signatures)) ? Number(p.signatures) : 0,
-    projectState: p.projectState || null
+    projectState: p.projectState || null,
+    finalPdfName: p.finalPdfName || null,
+    finalPdfGeneratedAt: p.finalPdfGeneratedAt || null,
+    finalPdfPages: p.finalPdfPages || 0
   }));
 }
 
@@ -143,6 +146,7 @@ async function renderDashboard() {
 
   const done = filteredProjs.filter(p=>p.progress===100).length;
   const pend = filteredProjs.reduce((sum, p) => sum + Math.max(0, 5 - (Number(p.signatures) || 0)), 0);
+  const generatedPdfCount = filteredProjs.filter(p => !!p.finalPdfName).length;
   
   const totalEl = document.getElementById('d-total');
   const doneEl = document.getElementById('d-done');
@@ -155,13 +159,13 @@ async function renderDashboard() {
     if (totalEl) totalEl.textContent = stats.totalProjects || 0;
     if (doneEl) doneEl.textContent = stats.completedReports || 0;
     if (sigsEl) sigsEl.textContent = stats.pendingReports || 0;
-    if (pdfsEl) pdfsEl.textContent = stats.completedReports || 0;
+    if (pdfsEl) pdfsEl.textContent = stats.generatedPdfs || generatedPdfCount || 0;
   } catch (err) {
     // Fallback to local dummy data if not connected
     if (totalEl) totalEl.textContent = filteredProjs.length;
     if (doneEl) doneEl.textContent = done;
     if (sigsEl) sigsEl.textContent = pend;
-    if (pdfsEl) pdfsEl.textContent = done + (filteredProjs.length > 0 ? 1 : 0);
+    if (pdfsEl) pdfsEl.textContent = generatedPdfCount;
   }
 
   // Update Overview progress bar fills and percentages dynamically
@@ -356,6 +360,7 @@ function renderProjects() {
 
         <div class="proj-card-actions">
           <button type="button" class="btn btn-outline btn-sm" style="flex:1" onclick="openProject(${p.id})">Open Project</button>
+          ${p.finalPdfName && typeof canAccessFinalDsrPdf === 'function' && canAccessFinalDsrPdf() ? `<button type="button" class="btn btn-navy btn-sm final-pdf-admin-action" onclick="downloadProjectFinalPDF(${p.id}, event)"><i data-lucide="download"></i> PDF</button>` : ''}
           ${hasAdminAccess() ? `<button type="button" class="btn btn-danger btn-sm" onclick="deleteProject(${p.id}, event)"><i data-lucide="trash-2"></i> Delete</button>` : ''}
         </div>
       </div>
@@ -371,6 +376,35 @@ function renderProjects() {
   if (typeof updateRolePermissionUI === 'function') updateRolePermissionUI();
   initLucide();
 }
+
+async function downloadProjectFinalPDF(projectId, event) {
+  if (event) event.stopPropagation();
+  if (typeof canAccessFinalDsrPdf === 'function' && !canAccessFinalDsrPdf()) {
+    if (typeof showFinalPdfAccessDenied === 'function') showFinalPdfAccessDenied();
+    return;
+  }
+  const project = S.projects.find(p => String(p.id) === String(projectId));
+  if (!project || !project.finalPdfName) {
+    toast('No generated final PDF found for this project.', 'info');
+    return;
+  }
+  try {
+    const response = await fetch(`/api/download-pdf?projectId=${encodeURIComponent(projectId)}&annexureId=final`, {
+      headers: { Authorization: `Bearer ${localStorage.getItem('dsr_token') || ''}` }
+    });
+    if (!response.ok) throw new Error(await response.text());
+    const blob = await response.blob();
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = project.finalPdfName;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+  } catch (err) {
+    toast(err.message || 'Unable to download Final DSR PDF', 'error');
+  }
+}
+window.downloadProjectFinalPDF = downloadProjectFinalPDF;
 
 async function openProject(id) {
   S.activeProject = S.projects.find(p=>p.id===id);
@@ -399,6 +433,9 @@ async function openProject(id) {
       S.annexureH = stateSnapshot.annexureH || [];
       S.annexureI = stateSnapshot.annexureI || [];
       S.annexureJ = stateSnapshot.annexureJ || [];
+      if (stateSnapshot.finalPdfName) S.activeProject.finalPdfName = stateSnapshot.finalPdfName;
+      if (stateSnapshot.finalPdfGeneratedAt) S.activeProject.finalPdfGeneratedAt = stateSnapshot.finalPdfGeneratedAt;
+      if (stateSnapshot.finalPdfPages) S.activeProject.finalPdfPages = stateSnapshot.finalPdfPages;
       if (stateSnapshot.sdlcData) S.sdlcData = stateSnapshot.sdlcData;
       else S.sdlcData = null;
       if (stateSnapshot.anx6PdfName) {
@@ -491,6 +528,9 @@ async function persistProjectState() {
     annexureH: S.annexureH,
     annexureI: S.annexureI,
     annexureJ: S.annexureJ,
+    finalPdfName: S.activeProject.finalPdfName || null,
+    finalPdfGeneratedAt: S.activeProject.finalPdfGeneratedAt || null,
+    finalPdfPages: S.activeProject.finalPdfPages || 0,
     anx6PdfName: S.activeProject.anx6PdfName,
     anx7PdfName: S.activeProject.anx7PdfName,
     sdlcData: S.sdlcData

@@ -134,6 +134,16 @@ function buildAuditLogs() {
   });
 }
 
+function isAdminRequest(req) {
+  const auth = req.headers.authorization || '';
+  return auth === 'Bearer local-demo-token-admin';
+}
+
+function denyFinalPdfAccess(res) {
+  res.writeHead(403, { 'Content-Type': 'text/plain' });
+  res.end('Access Denied - Only Administrators can download or email the Final DSR PDF.');
+}
+
 function deleteProjectUploads(projectId) {
   if (!fs.existsSync(UPLOADS_DIR)) return;
   try {
@@ -195,11 +205,13 @@ const server = http.createServer((req, res) => {
     if (pathname === '/api/dashboard/stats' && req.method === 'GET') {
       const projects = readProjects();
       const completed = projects.filter(p => getStatusForFrontend(p.status) === 'Completed' || p.progress === 100).length;
+      const generatedPdfs = projects.filter(p => !!p.finalPdfName).length;
       res.writeHead(200, { 'Content-Type': 'application/json' });
       res.end(JSON.stringify({
         totalProjects: projects.length,
         completedReports: completed,
-        pendingReports: Math.max(projects.length - completed, 0)
+        pendingReports: Math.max(projects.length - completed, 0),
+        generatedPdfs
       }));
       return;
     }
@@ -275,7 +287,7 @@ const server = http.createServer((req, res) => {
 
           res.writeHead(200, { 'Content-Type': 'application/json' });
           res.end(JSON.stringify({
-            token: 'local-demo-token',
+            token: role === 'ROLE_ADMIN' ? 'local-demo-token-admin' : 'local-demo-token-user',
             username,
             email: username,
             fullName: username.split('@')[0].replace(/[._-]+/g, ' ').replace(/\b\w/g, c => c.toUpperCase()),
@@ -445,6 +457,10 @@ const server = http.createServer((req, res) => {
       readRequestBody(req).then(async body => {
         try {
           const { projectId, fileName, pdf, annexureId = 'anx3' } = JSON.parse(body);
+          if (annexureId === 'final' && !isAdminRequest(req)) {
+            denyFinalPdfAccess(res);
+            return;
+          }
           if (!projectId) {
             res.writeHead(400, { 'Content-Type': 'application/json' });
             res.end(JSON.stringify({ success: false, error: 'Missing projectId' }));
@@ -497,6 +513,9 @@ const server = http.createServer((req, res) => {
           if (pIdx !== -1) {
             const fieldName = annexureId === 'anx3' ? 'annexure3PdfName' : `${annexureId}PdfName`;
             projects[pIdx][fieldName] = fileName;
+            if (annexureId === 'final') {
+              projects[pIdx].finalPdfGeneratedAt = new Date().toISOString();
+            }
             writeProjects(projects);
           }
 
@@ -517,6 +536,11 @@ const server = http.createServer((req, res) => {
       const projectId = queryParams.get('projectId');
       const annexureId = queryParams.get('annexureId') || 'anx3';
       const inline = queryParams.get('inline') === 'true';
+
+      if (annexureId === 'final' && !isAdminRequest(req)) {
+        denyFinalPdfAccess(res);
+        return;
+      }
 
       if (!projectId) {
         res.writeHead(400, { 'Content-Type': 'text/plain' });
@@ -559,6 +583,38 @@ const server = http.createServer((req, res) => {
       res.writeHead(200, headers);
       const stream = fs.createReadStream(filePath);
       stream.pipe(res);
+      return;
+    }
+
+    if (pathname === '/api/email-final-pdf' && req.method === 'POST') {
+      if (!isAdminRequest(req)) {
+        denyFinalPdfAccess(res);
+        return;
+      }
+      readRequestBody(req).then(body => {
+        try {
+          const { projectId, email } = JSON.parse(body || '{}');
+          if (!projectId || !email) {
+            res.writeHead(400, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({ success: false, error: 'Missing projectId or email' }));
+            return;
+          }
+          const filePath = path.join(UPLOADS_DIR, `${projectId}_final.pdf`);
+          if (!fs.existsSync(filePath)) {
+            res.writeHead(404, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({ success: false, error: 'Final PDF not found' }));
+            return;
+          }
+          res.writeHead(200, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ success: true, message: `Final DSR PDF queued for ${email}` }));
+        } catch (e) {
+          res.writeHead(400, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ success: false, error: 'Invalid JSON' }));
+        }
+      }).catch(err => {
+        res.writeHead(500, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ success: false, error: err.message }));
+      });
       return;
     }
 

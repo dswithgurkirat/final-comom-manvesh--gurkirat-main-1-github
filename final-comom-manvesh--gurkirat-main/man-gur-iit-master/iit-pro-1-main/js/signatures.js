@@ -169,7 +169,12 @@ function renderFinalChecklist() {
     </div>`).join('');
   const total=10;
   const countEl = document.getElementById('pdf-page-count');
-  if (countEl) countEl.textContent=`~${(S.chapters.length*4)+(S.plates.length*1)+32} estimated`;
+  if (countEl) countEl.textContent = S.activeProject?.finalPdfPages || `~${(S.chapters.length*4)+(S.plates.length*1)+32} estimated`;
+  const resultBox = document.getElementById('final-pdf-result');
+  if (resultBox) resultBox.style.display = S.activeProject?.finalPdfName ? 'block' : 'none';
+  const warningBox = document.getElementById('final-pdf-warnings');
+  if (warningBox && S.activeProject?.finalPdfName) warningBox.style.display = 'none';
+  if (typeof updateFinalPdfAdminUI === 'function') updateFinalPdfAdminUI();
   initLucide();
 }
 
