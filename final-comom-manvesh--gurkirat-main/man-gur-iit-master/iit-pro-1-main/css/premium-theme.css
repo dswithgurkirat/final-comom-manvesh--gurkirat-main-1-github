@@ -2453,6 +2453,8 @@ body.view-projects-active .page-body,
 
 /* Final global dark theme layer: overrides inline light styles across the portal */
 body:not(.view-dashboard-active) .sidebar {
+  --sidebar-shell-bg: #f7f4ee;
+  --sidebar-shell-border: rgba(196, 154, 88, 0.34);
   background: #f7f4ee !important;
   border-right: 1px solid rgba(196, 154, 88, 0.34) !important;
 }
@@ -2533,18 +2535,31 @@ html.dark .global-watermark {
 
 /* Sidebar: beat inline white backgrounds and fixed dark text */
 html.dark .sidebar {
-  background: #07111f !important;
+  --sidebar-shell-bg: #071a33;
+  --sidebar-shell-border: rgba(255, 255, 255, 0.08);
+  background: #071a33 !important;
   border-right: 1px solid rgba(148, 163, 184, 0.22) !important;
   box-shadow: 8px 0 30px rgba(0, 0, 0, 0.28) !important;
+  scrollbar-color: rgba(148, 163, 184, 0.42) #071a33;
 }
 
 html.dark .sidebar .sb-head {
-  background: #0d1a2b !important;
+  background: #0b1f3a !important;
   border-bottom-color: rgba(196, 154, 88, 0.34) !important;
 }
 
-html.dark .sidebar .sb-nav {
-  background: transparent !important;
+html.dark .sidebar .sb-nav,
+html.dark .sidebar .sb-nav[style],
+html.dark .sidebar .sb-section,
+html.dark .sidebar #overview-nav,
+html.dark .sidebar #report-nav,
+html.dark .sidebar #annexure-nav,
+html.dark .sidebar #tables-nav,
+html.dark .sidebar #finalize-nav,
+html.dark .sidebar #sdlc-nav,
+html.dark .sidebar #inline-more-annexures,
+html.dark .sidebar #inline-more-annexures[style] {
+  background: #071a33 !important;
 }
 
 html.dark .sidebar .sb-section-lbl,
@@ -2600,8 +2615,32 @@ html.dark .sidebar .sb-bottom-container[style],
 html.dark .sidebar .sb-bottom,
 html.dark .sidebar .sb-user-card,
 html.dark .sidebar .sb-user-card[style] {
-  background: #0d1a2b !important;
+  background: #0b1f3a !important;
   border-color: rgba(148, 163, 184, 0.24) !important;
+}
+
+html.dark .sidebar::-webkit-scrollbar,
+html.dark .sidebar .sb-nav::-webkit-scrollbar {
+  width: 10px;
+  background: #071a33 !important;
+}
+
+html.dark .sidebar::-webkit-scrollbar-track,
+html.dark .sidebar .sb-nav::-webkit-scrollbar-track {
+  background: #071a33 !important;
+  border-radius: 999px;
+}
+
+html.dark .sidebar::-webkit-scrollbar-thumb,
+html.dark .sidebar .sb-nav::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.42) !important;
+  border: 2px solid #071a33;
+  border-radius: 999px;
+}
+
+html.dark .sidebar::-webkit-scrollbar-thumb:hover,
+html.dark .sidebar .sb-nav::-webkit-scrollbar-thumb:hover {
+  background: rgba(208, 163, 93, 0.66) !important;
 }
 
 html.dark .sidebar .sb-username-text,
