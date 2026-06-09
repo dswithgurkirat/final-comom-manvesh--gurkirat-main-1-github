@@ -437,7 +437,9 @@ async function openProject(id) {
   }
   
   // Open the project navigation automatically after selecting a project.
-  if (typeof isSidebarPinned !== 'undefined') {
+  if (typeof setSidebarCollapsed === 'function') {
+    setSidebarCollapsed(false);
+  } else if (typeof isSidebarPinned !== 'undefined') {
     isSidebarPinned = true;
     document.body.classList.remove('sidebar-hidden');
   }

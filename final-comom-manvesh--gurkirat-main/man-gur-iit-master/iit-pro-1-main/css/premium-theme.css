@@ -3250,3 +3250,32 @@ html.dark body:not(.view-dashboard-active):not(.view-projects-active) .dash-glob
     width: 100% !important;
   }
 }
+
+/* Sidebar performance layer: keep toggle work on the compositor only. */
+body.premium-body,
+body.sidebar-hidden.premium-body {
+  animation: none !important;
+  transform: none !important;
+  opacity: 1 !important;
+}
+
+body:not(.view-dashboard-active) .sidebar,
+body:not(.view-dashboard-active) .sidebar[style] {
+  transform: translate3d(0, 0, 0) !important;
+  transition: transform .3s cubic-bezier(.4, 0, .2, 1) !important;
+  will-change: transform;
+  backface-visibility: hidden;
+  contain: layout paint style;
+}
+
+body.sidebar-hidden:not(.view-dashboard-active) .sidebar,
+body.sidebar-hidden:not(.view-dashboard-active) .sidebar[style] {
+  transform: translate3d(-100%, 0, 0) !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body:not(.view-dashboard-active) .sidebar,
+  body:not(.view-dashboard-active) .sidebar[style] {
+    transition-duration: 1ms !important;
+  }
+}

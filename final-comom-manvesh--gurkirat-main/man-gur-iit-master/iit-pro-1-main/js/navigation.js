@@ -6,27 +6,37 @@ let currentViewId = 'dashboard';
 let isSidebarPinned = false;
 let sidebarTimer;
 
-function toggleSidebar() {
-  isSidebarPinned = !isSidebarPinned;
-  if (isSidebarPinned) {
-    document.body.classList.remove('sidebar-hidden');
-  } else {
-    document.body.classList.add('sidebar-hidden');
+function setSidebarCollapsed(collapsed) {
+  collapsed = Boolean(collapsed);
+  clearTimeout(sidebarTimer);
+  const isCollapsed = document.body.classList.contains('sidebar-hidden');
+  if (isCollapsed !== collapsed) {
+    document.body.classList.toggle('sidebar-hidden', collapsed);
   }
-  if (window.initLucide) initLucide();
+  isSidebarPinned = !collapsed;
+
+  const toggleBtn = document.getElementById('tb-sidebar-toggle');
+  if (toggleBtn) {
+    toggleBtn.setAttribute('aria-expanded', String(!collapsed));
+  }
+}
+
+function toggleSidebar(event) {
+  if (event && typeof event.preventDefault === 'function') event.preventDefault();
+  if (event && typeof event.stopPropagation === 'function') event.stopPropagation();
+  const shouldCollapse = !document.body.classList.contains('sidebar-hidden');
+  setSidebarCollapsed(shouldCollapse);
+  return false;
 }
 
 function expandSidebar() {
   if (isSidebarPinned) return;
   clearTimeout(sidebarTimer);
-  document.body.classList.remove('sidebar-hidden');
 }
 
 function collapseSidebar() {
   if (isSidebarPinned) return;
-  sidebarTimer = setTimeout(() => {
-    document.body.classList.add('sidebar-hidden');
-  }, 200);
+  clearTimeout(sidebarTimer);
 }
 
 // Initialize history state on load and preserve any valid view hash
@@ -590,7 +600,7 @@ function updateSidebarToggleVisibility() {
   } else {
     toggleBtn.style.display = 'none';
   }
-  if (window.initLucide) initLucide();
+  toggleBtn.setAttribute('aria-expanded', String(!document.body.classList.contains('sidebar-hidden')));
 }
 
 function clearActiveProject() {
@@ -605,8 +615,7 @@ function clearActiveProject() {
     if (typeof filterDashboardByDistrict === 'function') filterDashboardByDistrict('ALL');
     
     // Collapse and unpin sidebar when active project is cleared
-    isSidebarPinned = false;
-    document.body.classList.add('sidebar-hidden');
+    setSidebarCollapsed(true);
     updateSidebarToggleVisibility();
     S.annexureB = [];
     S.annexureC = [];
