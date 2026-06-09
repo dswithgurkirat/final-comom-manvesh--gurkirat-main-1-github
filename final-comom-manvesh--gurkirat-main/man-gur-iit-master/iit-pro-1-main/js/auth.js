@@ -264,6 +264,10 @@ async function showAppScreen() {
   if (dashMenuAuditLogs) {
     dashMenuAuditLogs.style.display = S.role === 'admin' ? 'block' : 'none';
   }
+  const projectsMenuAuditLogs = document.getElementById('projects-menu-audit-logs');
+  if (projectsMenuAuditLogs) {
+    projectsMenuAuditLogs.style.display = S.role === 'admin' ? 'block' : 'none';
+  }
   const navUsers = document.getElementById('nav-users');
   if (navUsers) {
     navUsers.style.display = S.role === 'admin' ? 'block' : 'none';

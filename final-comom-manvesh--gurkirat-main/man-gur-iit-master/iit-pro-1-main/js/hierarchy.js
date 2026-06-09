@@ -559,6 +559,10 @@ function updateRolePermissionUI() {
   if (navAuditLogs) navAuditLogs.style.display = adminAccess ? 'block' : 'none';
   const tbNavAuditLogs = document.getElementById('tb-nav-audit-logs');
   if (tbNavAuditLogs) tbNavAuditLogs.style.display = adminAccess ? 'inline-flex' : 'none';
+  const dashMenuAuditLogs = document.getElementById('dash-menu-audit-logs');
+  if (dashMenuAuditLogs) dashMenuAuditLogs.style.display = adminAccess ? 'block' : 'none';
+  const projectsMenuAuditLogs = document.getElementById('projects-menu-audit-logs');
+  if (projectsMenuAuditLogs) projectsMenuAuditLogs.style.display = adminAccess ? 'block' : 'none';
   const navUsers = document.getElementById('nav-users');
   if (navUsers) navUsers.style.display = adminAccess ? 'block' : 'none';
 

@@ -464,7 +464,8 @@ function showView(id, btn, push = true) {
     'annexure-h': 'Annexure H', 'annexure-i': 'Annexure I', 'annexure-j': 'Annexure J',
     'annexure-k': 'Annexure K', 'demand-table': 'Projected Demand Table',
     'auction-table': 'Auctioned Sites', 'summary-table': 'Source Summary Table', 'benchmark-table': 'Bench Mark & CORS',
-    'esign': 'E-Signature Panel', 'generate': 'Generate Final PDF', 'history': 'Report History', 'users': 'User Management'
+    'esign': 'E-Signature Panel', 'generate': 'Generate Final PDF', 'history': 'Report History', 'users': 'User Management',
+    'audit-logs': 'System Audit Logs'
   };
 
   const titleEl = document.getElementById('topbar-title');
@@ -483,6 +484,9 @@ function showView(id, btn, push = true) {
     refreshProjectsFromBackend(true).catch(err => console.error('Project refresh failed', err));
   }
   if (id === 'users' && typeof renderUsers === 'function') renderUsers();
+  if (id === 'audit-logs' && typeof window.loadAuditLogs === 'function') {
+    window.loadAuditLogs();
+  }
   if (id === 'benchmark-table' && typeof mountBenchmarkPanel === 'function') mountBenchmarkPanel('benchmark-table-content');
   if (id === 'anx1' && typeof renderPdfUploadUIAnx1 === 'function') renderPdfUploadUIAnx1();
   if (id === 'anx2' && typeof renderPdfUploadUIAnx2 === 'function') renderPdfUploadUIAnx2();

@@ -92,6 +92,48 @@ function writeProjects(projects) {
   }
 }
 
+function getProjectDisplayName(project) {
+  if (!project) return 'Unknown Project';
+  return project.projectName || project.title || `District Survey Report - ${project.district || 'Punjab'}`;
+}
+
+function appendWorkflowAudit(projectId, entry) {
+  const key = String(projectId);
+  workflowHistory[key] = [entry, ...(workflowHistory[key] || [])];
+}
+
+function buildAuditLogs() {
+  const projects = readProjects();
+  const projectsById = new Map(projects.map(project => [String(project.id), project]));
+
+  const workflowLogs = Object.entries(workflowHistory).flatMap(([projectId, entries]) => {
+    const project = projectsById.get(String(projectId));
+    return (Array.isArray(entries) ? entries : []).map(entry => ({
+      projectId: entry.projectId || projectId,
+      projectName: entry.projectName || getProjectDisplayName(project),
+      performedBy: entry.performedBy || 'system',
+      action: entry.action || 'AUDIT',
+      remarks: entry.remarks || '',
+      performedAt: entry.performedAt || entry.createdAt || new Date().toISOString()
+    }));
+  });
+
+  const projectLogs = projects.map(project => ({
+    projectId: project.id,
+    projectName: getProjectDisplayName(project),
+    performedBy: project.createdBy || 'local-demo-user',
+    action: 'PROJECT_CREATED',
+    remarks: `${project.district || 'Punjab'} DSR project created for ${project.year || '2025-26'}`,
+    performedAt: project.createdAt || new Date().toISOString()
+  }));
+
+  return [...workflowLogs, ...projectLogs].sort((a, b) => {
+    const aTime = new Date(a.performedAt).getTime() || 0;
+    const bTime = new Date(b.performedAt).getTime() || 0;
+    return bTime - aTime;
+  });
+}
+
 function deleteProjectUploads(projectId) {
   if (!fs.existsSync(UPLOADS_DIR)) return;
   try {
@@ -170,7 +212,7 @@ const server = http.createServer((req, res) => {
 
     if (pathname === '/api/reports/audit-logs' && req.method === 'GET') {
       res.writeHead(200, { 'Content-Type': 'application/json' });
-      res.end(JSON.stringify([]));
+      res.end(JSON.stringify(buildAuditLogs()));
       return;
     }
 
@@ -190,12 +232,13 @@ const server = http.createServer((req, res) => {
           const payload = JSON.parse(body || '{}');
           const entry = {
             projectId: Number(reportId) || reportId,
+            projectName: getProjectDisplayName(readProjects().find(p => String(p.id) === String(reportId))),
             action: payload.action || 'SUBMIT',
             remarks: payload.remarks || '',
             performedBy: 'local-demo-user',
             performedAt: new Date().toISOString()
           };
-          workflowHistory[reportId] = [entry, ...(workflowHistory[reportId] || [])];
+          appendWorkflowAudit(reportId, entry);
           res.writeHead(200, { 'Content-Type': 'application/json' });
           res.end(JSON.stringify(entry));
         } catch (e) {
@@ -307,6 +350,14 @@ const server = http.createServer((req, res) => {
             });
             projects.unshift(createdProject);
             writeProjects(projects);
+            appendWorkflowAudit(createdProject.id, {
+              projectId: createdProject.id,
+              projectName: getProjectDisplayName(createdProject),
+              action: 'PROJECT_CREATED',
+              remarks: `${createdProject.district || 'Punjab'} DSR project created for ${createdProject.year || '2025-26'}`,
+              performedBy: 'local-demo-user',
+              performedAt: createdProject.createdAt
+            });
             res.writeHead(201, { 'Content-Type': 'application/json' });
             res.end(JSON.stringify(createdProject));
           } catch (e) {
@@ -375,7 +426,15 @@ const server = http.createServer((req, res) => {
         }
         writeProjects(remaining);
         deleteProjectUploads(projectId);
-        delete workflowHistory[projectId];
+        const deletedProject = projects.find(p => String(p.id) === String(projectId));
+        appendWorkflowAudit(projectId, {
+          projectId,
+          projectName: getProjectDisplayName(deletedProject),
+          action: 'PROJECT_DELETED',
+          remarks: 'Project deleted from local workspace',
+          performedBy: 'local-demo-user',
+          performedAt: new Date().toISOString()
+        });
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ success: true }));
         return;
